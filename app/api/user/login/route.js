@@ -21,7 +21,7 @@ export async function POST(request) {
                                         .setProtectedHeader({alg: "HS256"})
                                         .setExpirationTime("2d")
                                         .sign(secretKey)
-                console.log(token)
+                //console.log(token)
                 return NextResponse.json({message: "Success Login", token: token})
             }
             return NextResponse.json({message: "Failed Longin: Wrong Password"})
