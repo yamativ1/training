@@ -3,7 +3,7 @@ import Link from "next/link"
 import Image from "next/image"
 
 const getAllitems = async() => {
-  const response = await fetch("http://localhost:3000/api/item/readall",{cache: "no-store"})
+  const response = await fetch(`${process.env.NEXT_PUBLIC_URL}/api/item/readall`,{cache: "no-store"})
   const jsonData = await response.json()
   //console.log(jsonData)
   const allItems = jsonData.allItems

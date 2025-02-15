@@ -1,9 +1,9 @@
 // app\item\create\page.js
 "use client"
 import { useState } from "react"
+import { useRouter } from "next/navigation"
 import useAuth from "../../utils/useAuth"
-
-
+import ImgInput from "../../components/imgInput"
 
 const CreateItem = () => {
     const [title, setTitle] = useState("")
@@ -13,11 +13,12 @@ const CreateItem = () => {
     
     const loginUserEmail = useAuth()
     //console.log(loginUserEmail)
+    const router = useRouter()
 
     const handleSubmit = async(e) => {
         e.preventDefault()
         try{
-            const response = await fetch(`${env.NEXT_PUBLIC_URL}/api/item/create`,{
+            const response = await fetch(`${process.env.NEXT_PUBLIC_URL}/api/item/create`,{
                 method: "POST",
                 headers: {
                     "Accept": "aaplication.json",
@@ -34,6 +35,8 @@ const CreateItem = () => {
         })
         const jsonData = await response.json()
         alert(jsonData.message)
+        router.push("/")
+        router.refresh()
         }catch(err){
             alert("アイテム作成失敗")
         }
@@ -42,7 +45,8 @@ const CreateItem = () => {
     if(loginUserEmail){
         return (
             <div className = "page-title">
-                <h1>アイテム作成</h1>
+                <h1 className="page-title">アイテム作成</h1>
+                <ImgInput setImage={setImage}/>
                 <form onSubmit={handleSubmit}>
                     <input value = {title}
                             onChange={(e) => setTitle(e.target.value)}
